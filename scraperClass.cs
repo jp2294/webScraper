@@ -6,8 +6,10 @@ using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Support.UI;
 
 
+
 class Scraper : Attribute
 {
+    
     private string url;
     public Scraper(string url)
     {
@@ -31,7 +33,7 @@ class Scraper : Attribute
     public void ShowjScript()
     {
         using (IWebDriver driver = new ChromeDriver())
-        {
+        { 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             driver.Navigate().GoToUrl(url);
             wait.Until(webDriver => webDriver.FindElement(By.CssSelector("h2>div")).Displayed);
@@ -54,7 +56,9 @@ class Scraper : Attribute
 
     public Product Sainsexample()
     {
-        using (IWebDriver driver = new ChromeDriver())
+        var chromeOptions = new ChromeOptions();
+        chromeOptions.AddArguments("headless");
+        using (IWebDriver driver = new ChromeDriver(chromeOptions))
         {
             driver.Url = this.url;
             
